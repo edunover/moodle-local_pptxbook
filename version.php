@@ -14,19 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle. If not, see <https://www.gnu.org/licenses/>.
 
-
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
+
+/** @var stdClass $plugin */
 $plugin->component = 'local_pptxbook';
-$plugin->version = 2026092702;
+$plugin->version = 2026092703;
 $plugin->requires = 2024100700; // Moodle 4.5.
 $plugin->supported = [405, 502];
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.2.1';
+$plugin->release = '0.2.2';
 $plugin->dependencies = ['mod_book' => 2024100700];
