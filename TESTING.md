@@ -1,9 +1,9 @@
-# Vérification — version ZIP 0.2.0
+# Vérification — version ZIP 0.2.3
 
 ## Contrôles exécutés
 
 - Analyse de syntaxe de tous les fichiers PHP sous PHP 8.4.6 : réussie.
-- `php tests/standalone.php` : **41 vérifications réussies**.
+- Harnais autonome de développement (hors ZIP) : **41 vérifications réussies**.
 - Archives PNG/JPEG réelles générées par GD : tri numérique, conservation des octets
   JPEG, MIME et extension, métadonnées système ignorées.
 - Refus : archives non valides, traversée de dossiers, chemins absolus/Windows,
@@ -22,9 +22,9 @@ Sur une installation Moodle réservée aux tests, initialisée pour PHPUnit :
 
 ```sh
 # Moodle 4.5 / 5.0, depuis la racine Moodle
-vendor/bin/phpunit local/pptxbook/tests/importer_test.php
+vendor/bin/phpunit local/pptxbook/tests
 # Moodle 5.1 / 5.2, depuis la racine du dépôt
-vendor/bin/phpunit public/local/pptxbook/tests/importer_test.php
+vendor/bin/phpunit public/local/pptxbook/tests
 ```
 
 Ces tests vérifient l’ajout à un Livre existant, la conservation du premier chapitre,
@@ -53,6 +53,23 @@ visibilité, les imports successifs et le refus d’accès d’un étudiant.
 
 ## Conformité de code
 
-Les en-têtes GPL complets et les principales documentations PHPDoc ont été ajoutés.
-Le passage avec moodlehq/moodle-cs et PHPDoc reste à réaliser : il n’a pas été exécuté
-ici. Aucun résultat de conformité automatique complète n’est revendiqué.
+Moodle CodeSniffer 3.7.0 exécuté avec `moodle` et `moodle-extra` : **0 erreur,
+0 avertissement**. Les tests autonomes ont été migrés vers `tests/archive_test.php`
+pour exécution native avec Moodle PHPUnit ; le harnais avec doublures n'est pas livré.
+Les tests d'archive couvrent tri, titres, MIME, octets conservés, fichiers non autorisés,
+chemins dangereux, doublons, taille, dimensions, corruption, symlinks et nettoyage.
+
+PHPDoc Checker et validation via moodle-plugin-ci n'ont pas pu s'exécuter : Moodle
+nécessite une configuration et une base. L'initialisation PostgreSQL a échoué parce
+que cet environnement interdit sa création de mémoire partagée. Aucun test
+avec base de données réussi n'est revendiqué.
+
+## Avant soumission Marketplace
+
+- Exécuter PHPUnit et PHPDoc Checker dans un environnement Moodle dédié.
+- Vérifier les quatre versions Moodle ciblées avec leur version PHP compatible.
+- Fournir des captures du menu Plus, du formulaire et du Livre importé.
+- Rendre le code source et le suivi des problèmes accessibles aux évaluateurs.
+  Le dépôt GitHub est actuellement privé ; sa visibilité n'a pas été modifiée.
+- Compléter la fiche du plugin et vérifier les critères Marketplace en vigueur.
+  Une analyse de style réussie ne constitue pas une approbation Moodle.

@@ -1,108 +1,75 @@
-# Images de diapositives vers Livre — Moodle
+# Slide images to Book
 
-Version **0.2.0 bêta**, composant `local_pptxbook`, cible Moodle **4.5 à 5.2**.
-Le nom technique reste inchangé pour permettre la mise à jour de la version 0.1.0.
+Moodle local plugin `local_pptxbook`, version **0.2.3 beta**.
+Imports a ZIP of PNG/JPEG slide images into an **existing Book activity**.
+No LibreOffice, shell commands or external conversion service is required.
+Export your slides as images in PowerPoint before creating the ZIP; direct PPTX
+conversion is not included. English, French and Dutch interfaces are included.
 
-Cette version importe un **ZIP d’images PNG/JPEG dans un Livre existant**.
-Elle n’utilise ni LibreOffice, ni Poppler, ni commande système, ni service externe.
-L’interface est disponible en français et en anglais.
+[Documentation en français](README.fr.md).
 
-## Installation sur un hébergement partagé
+## Requirements and installation
 
-1. Dans Moodle : **Administration du site → Plugins → Installer des plugins**.
-2. Envoyez **local_pptxbook-0.2.0.zip** et suivez les étapes d’installation.
-3. Vérifiez que les extensions PHP **ZIP et GD** sont activées sur votre hébergement.
-   Il s’agit d’extensions PHP, pas de programmes à installer comme LibreOffice.
-4. Réglez les limites dans **Administration du site → Plugins → Plugins locaux →
-   Images de diapositives vers Livre**.
+Target Moodle versions: 4.5, 5.0, 5.1 and 5.2, with a PHP version supported by Moodle,
+and PHP ZIP/GD extensions enabled. Compatibility with all targets is not yet certified.
 
-Si vous utilisez un transfert de fichiers plutôt que l’installateur Moodle,
-placez le dossier `pptxbook` dans `local/` pour Moodle 4.5–5.0, ou dans
-`public/local/` pour Moodle 5.1–5.2, puis ouvrez les notifications d’administration.
-Lors d’une mise à jour manuelle, remplacez le dossier du plugin en entier pour
-supprimer les anciens fichiers de conversion. Ne désinstallez pas d’abord le plugin.
-Les anciens paramètres LibreOffice/Poppler sont supprimés lors de la mise à jour.
+Upload `local_pptxbook-0.2.3.zip` under Site administration > Plugins > Install plugins.
+For manual installation, copy `pptxbook` to `local/` (4.5–5.0) or `public/local/`
+(5.1–5.2), then visit Site administration > Notifications. For upgrades replace the
+whole plugin directory to remove obsolete conversion files; do not uninstall first.
+The component name is retained for upgrades from 0.1.0; obsolete LibreOffice/Poppler
+settings are removed. Existing Books are preserved.
 
-Le plugin ne modifie pas les Livres déjà créés par la version précédente.
+Settings are under Site administration > Plugins > Local plugins > Slide images to Book,
+not under activity modules. The Book module must be enabled.
 
-## Utilisation
+## Usage
 
-1. Exportez les diapositives depuis PowerPoint en **PNG** ou **JPEG**.
-2. Placez les images ensemble et nommez-les de manière cohérente, par exemple
-   `Diapositive1.png`, `Diapositive2.png`, `Diapositive10.png`.
-3. Compressez-les dans un ZIP. Le ZIP peut contenir un dossier enveloppant les images.
-4. Ouvrez le **Livre Moodle** auquel ajouter les diapositives.
-5. Choisissez **Plus → Importer des images (ZIP)**.
-6. Sélectionnez le ZIP et lancez l’import.
+1. Export slides as PNG or JPEG and name them consistently (Slide1.png, Slide2.png, Slide10.png).
+2. Compress the images into a ZIP, optionally within one containing directory.
+3. Open the target Book, then choose **More > Import images (ZIP)**.
+4. Upload the ZIP. Each image becomes a new main chapter at the end of the Book.
 
-Chaque image devient un chapitre principal ajouté à la fin du Livre.
-Les noms des fichiers, sans extension, servent de titres ; les traits de
-soulignement deviennent des espaces. Les titres restent modifiables dans Moodle.
-Le tri est naturel, sans distinction de majuscules : `2` précède `10`.
-Il porte sur le chemin relatif complet : utilisez un seul dossier pour un ordre
-prévisible. Les fichiers de métadonnées courants de macOS et Windows sont ignorés.
+File names without extensions become chapter titles, with underscores replaced by spaces.
+Images are sorted naturally by full relative path, ignoring case. Existing chapters
+and activity visibility are preserved. New chapters are visible immediately in a visible
+Book: hide the activity first when preparing content. Repeating an import appends duplicates.
 
-**Les chapitres existants et la visibilité du Livre sont conservés.** Les nouveaux
-chapitres sont visibles dès l’import si le Livre est visible. Pour préparer un
-contenu sans le montrer aux étudiants, masquez préalablement le Livre dans Moodle.
-Un nouvel import du même ZIP ajoute de nouveaux chapitres ; ce n’est pas une mise
-à jour des chapitres déjà importés.
+Both `local/pptxbook:import` and `mod/book:edit` are required in the Book context.
+Editing teachers and managers receive the import capability by default.
 
-Si votre thème personnalise le menu Plus, l’action reste ajoutée aux paramètres
-de l’activité Livre. Accès direct possible :
-`https://VOTRE-MOODLE/local/pptxbook/index.php?id=ID_ACTIVITE_LIVRE`
-(utilisez l’identifiant `id` dans l’adresse `/mod/book/view.php?id=...`, pas l’ID du cours).
+## Limits and data handling
 
-## Pré-requis et limites
+Default limits are 25 MB per ZIP and 50 images, configurable up to 100 MB and 200 images.
+PHP, site and course upload limits still apply. Fixed safeguards are 10 MB per image,
+8 million pixels per image, 16,000 pixels per side, 128 MB total uncompressed data and
+5,000 archive entries. A 1920×1080 image is suitable. Images are not resized.
 
-- Moodle 4.5, 5.0, 5.1 ou 5.2 avec sa version de PHP prise en charge ; syntaxe PHP 8.1+.
-- Extensions PHP ZIP et GD, et module Livre activé.
-- Permissions `local/pptxbook:import` et `mod/book:edit` dans le Livre.
-  La permission d’import est accordée par défaut aux enseignants éditeurs et gestionnaires.
-- Par défaut : **25 Mo par ZIP**, **50 images**. Paramétrables jusqu’à 100 Mo et 200 images.
-  Les limites PHP, de Moodle et du cours restent prioritaires. Une mise à jour
-  conserve les limites d’envoi et de nombre d’images déjà configurées.
-- Maximum fixe : **10 Mo et 8 millions de pixels par image**, 16 000 pixels par côté.
-  Une image 1920 × 1080 convient. Le plugin ne redimensionne pas les images.
-- Maximum fixe : 128 Mo de contenu décompressé et 5 000 entrées par archive.
-- Les fichiers autres que PNG/JPEG sont refusés, sauf les métadonnées explicitement ignorées.
-  Les PPTX, PDF, SVG, archives imbriquées et images chiffrées ne sont pas acceptés.
-- Les images ne sont pas envoyées à un service externe et leur contenu est conservé.
-- L’import se déroule pendant la requête web : pour les gros lots, utilisez plusieurs ZIP.
-  Après une interruption réseau, vérifiez le Livre avant de recommencer.
+The plugin rejects unsafe paths, symlinks, duplicate names, encrypted images, unsupported
+files and invalid image data. Common macOS/Windows metadata is ignored. SVG, PDF, PPTX
+and nested archives are not accepted. All images are validated before chapters are added.
+Imports use Moodle transactions and a per-Book lock; the lock does not block the native
+Book editor, so avoid simultaneous manual editing. Large imports should be split into
+smaller ZIPs. Check the Book before retrying after a connection interruption.
 
-## Sécurité, stockage et accessibilité
+Images are stored in the native `mod_book/chapter` file area and remain unchanged.
+Book access controls, backup/restore and deletion therefore apply. No external service
+receives the images; the plugin creates no personal-data tables or separate file area.
+Draft uploads and request temporary files follow Moodle's retention/cleanup mechanisms.
 
-Le plugin vérifie les permissions et le jeton de session. Il inspecte les noms et
-la taille des entrées, rejette les liens symboliques et les chemins dangereux,
-contrôle le type réel des images et vérifie leur décodage avec GD. Il écrit les
-fichiers temporaires sous des noms générés, sans extraire les chemins de l’archive.
-Toutes les images sont validées avant modification du Livre.
+File names supply initial alternative text, not an accessible transcription. Add meaningful
+text descriptions to chapters for charts and slides containing text. OCR is not provided.
 
-Les chapitres et fichiers sont ajoutés dans une transaction Moodle. Les imports
-simultanés par ce plugin dans le même Livre utilisent un verrou. Ce verrou ne
-bloque pas les modifications manuelles faites avec l’éditeur natif : évitez
-l’édition simultanée pendant l’import.
+## Development and validation
 
-Les images utilisent la zone native `mod_book/chapter` : les règles d’accès,
-sauvegardes/restaurations et suppressions du Livre s’appliquent. Aucun stockage
-personnel distinct ni table propre au plugin n’est créé. Les fichiers brouillons
-suivent la rétention de Moodle. Les fichiers temporaires sont supprimés à la fin
-d’une requête normale ; après une interruption brutale, le nettoyage Moodle s’applique.
+GPL v3 or later; see LICENSE.txt. Copyright 2026 EDUNOVER.
+Source: https://github.com/edunover/moodle-local_pptxbook
+Issues: https://github.com/edunover/moodle-local_pptxbook/issues
+These links require access while the repository is private.
 
-Le nom du fichier sert de texte alternatif initial. Il ne remplace pas une
-description accessible du contenu : ajoutez du texte ou une description dans
-les chapitres pour les graphiques, schémas et diapositives contenant du texte.
-Aucune reconnaissance de texte n’est réalisée.
-
-## État de validation
-
-**Bêta : aucune certification de compatibilité ni de conformité complète annoncée.**
-Les contrôles de syntaxe PHP et 41 vérifications autonomes ont réussi.
-Les tests d’intégration Moodle sont fournis mais n’ont pas été exécutés faute
-d’installation Moodle disponible. La navigation réelle, les sauvegardes/restaurations
-et la compatibilité sur les quatre versions restent à vérifier sur un site de test.
-L’outil Moodle CodeSniffer n’a pas été exécuté.
-Voir `TESTING.md` pour le protocole.
-
-Licence : GPL v3 ou ultérieure.
+Moodle CodeSniffer 3.7.0 (`moodle` and `moodle-extra`) passes with zero errors or warnings.
+PHP lint and 41 standalone smoke assertions passed under PHP 8.4.6. The standalone harness
+is a development aid outside the distributable; native Moodle PHPUnit tests are included.
+The user has confirmed successful imports on Moodle 4.5. Moodle PHPUnit, full PHPDoc
+validation, cross-version compatibility and browser acceptance tests remain outstanding.
+See TESTING.md. This release is not represented as Marketplace-approved.

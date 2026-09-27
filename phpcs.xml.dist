@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="local_pptxbook">
+    <description>Moodle coding standards for the local_pptxbook plugin.</description>
+    <rule ref="moodle" />
+    <rule ref="moodle-extra" />
+</ruleset>

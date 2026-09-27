@@ -8,19 +8,20 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require(__DIR__ . '/../../config.php');
 
 $id = required_param('id', PARAM_INT);
@@ -50,12 +51,17 @@ if ($data = $form->get_data()) {
         \local_pptxbook\archive::check();
         $directory = make_request_directory();
         $input = $directory . '/slides.zip';
-        if (!$form->save_file('presentation', $input, true) ||
-                filesize($input) > \local_pptxbook\options::maxbytes($course)) {
+        if (
+            !$form->save_file('presentation', $input, true) ||
+                filesize($input) > \local_pptxbook\options::maxbytes($course)
+        ) {
             throw new moodle_exception('invalidzip', 'local_pptxbook');
         }
-        $images = \local_pptxbook\archive::read($input, $directory,
-            \local_pptxbook\options::integer('maxslides', 50, 1, 200));
+        $images = \local_pptxbook\archive::read(
+            $input,
+            $directory,
+            \local_pptxbook\options::integer('maxslides', 50, 1, 200)
+        );
         $count = \local_pptxbook\importer::append($cm, $images);
     } catch (moodle_exception $exception) {
         $error = $exception->getMessage();
@@ -65,8 +71,12 @@ if ($data = $form->get_data()) {
         }
     }
     if (isset($count)) {
-        redirect($bookurl, get_string('success', 'local_pptxbook', $count), null,
-            \core\output\notification::NOTIFY_SUCCESS);
+        redirect(
+            $bookurl,
+            get_string('success', 'local_pptxbook', $count),
+            null,
+            \core\output\notification::NOTIFY_SUCCESS
+        );
     }
 }
 echo $OUTPUT->header();
