@@ -8,28 +8,27 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_pptxbook;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Moodle integration tests for appending chapters.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \local_pptxbook\importer
  */
@@ -75,11 +74,19 @@ final class importer_test extends \advanced_testcase {
         $this->assertEquals(2, $chapters[1]->pagenum);
         $this->assertEquals('Slide 2', $chapters[1]->title);
         $this->assertEquals(get_string('slide', 'local_pptxbook', 3), $chapters[2]->title);
-        $this->assertStringContainsString('@@PLUGINFILE@@/slide.png', $chapters[1]->content);
+        $this->assertStringContainsString(
+            '@@PLUGINFILE@@/slide.png',
+            $chapters[1]->content
+        );
         $this->assertEquals($before, $DB->count_records('course_modules', ['course' => $course->id]));
         $this->assertEquals(1, $DB->get_field('course_modules', 'visible', ['id' => $cm->id]));
         $files = get_file_storage()->get_area_files(
-            \context_module::instance($cm->id)->id, 'mod_book', 'chapter', false, 'id', false
+            \context_module::instance($cm->id)->id,
+            'mod_book',
+            'chapter',
+            false,
+            'id',
+            false
         );
         $this->assertCount(2, $files);
         $this->assertSame(1, importer::append($cm, [$images[0]]));
