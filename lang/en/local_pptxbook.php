@@ -8,44 +8,44 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Images de diapositives vers Livre';
-$string['pptxbook:import'] = 'Importer des images de diapositives dans un Livre';
-$string['import'] = 'Importer des images (ZIP)';
-$string['bookname'] = 'Nom du Livre';
-$string['section'] = 'Section du cours';
-$string['presentation'] = 'Archive ZIP d’images PNG/JPEG';
-$string['importnotice'] = 'Les images sont triées par nom de fichier, dans l’ordre naturel (Diapositive2 avant Diapositive10). Utilisez des noms cohérents et placez les images dans un même dossier. Chaque nom devient un titre de chapitre. Les images sont ajoutées à la fin de ce Livre. Les chapitres existants sont conservés. Si le Livre est visible, les nouveaux chapitres le seront immédiatement. Ajoutez si nécessaire des descriptions accessibles. Gardez cette page ouverte jusqu’à la fin de l’import.';
-$string['invalidname'] = 'Saisissez un nom de Livre de 1 à 255 caractères.';
-$string['maxslides'] = 'Nombre maximal d’images';
-$string['maxslides_desc'] = 'Nombre maximal d’images par import (1 à 200). Par défaut : 50.';
-$string['maxmb'] = 'Taille maximale du ZIP (Mo)';
-$string['maxmb_desc'] = 'Limite d’envoi du ZIP (1 à 100 Mo). Les limites Moodle, du cours et de PHP s’appliquent aussi. Par défaut : 25 Mo.';
-$string['notconfigured'] = 'Les extensions PHP ZIP et GD sont nécessaires. Demandez leur activation à votre hébergeur.';
-$string['invalidzip'] = 'Archive ZIP invalide, endommagée ou non sûre. Créez un nouveau ZIP contenant uniquement des images PNG/JPEG.';
-$string['archivelimit'] = 'Le ZIP dépasse 5 000 entrées ou 128 Mo de contenu décompressé.';
-$string['unsupportedfile'] = 'Le ZIP contient un fichier autre qu’une image PNG ou JPEG. Retirez les autres documents avant l’import.';
-$string['duplicatename'] = 'Le ZIP contient des chemins identiques, sans distinction de majuscules. Renommez les fichiers avant l’import.';
-$string['imagelimit'] = 'Une image est vide, chiffrée ou dépasse 10 Mo.';
-$string['invalidimage'] = 'Une image est endommagée, porte une extension incorrecte ou dépasse 8 millions de pixels ou 16 000 pixels sur un côté. Exportez des images PNG/JPEG plus petites.';
-$string['writefailed'] = 'Impossible d’écrire les fichiers temporaires. Vérifiez le stockage temporaire Moodle et l’espace disque.';
-$string['slidelimit'] = 'Le ZIP doit contenir entre 1 et {$a} images.';
-$string['invalidsection'] = 'Sélectionnez une section ordinaire existante du cours.';
-$string['busy'] = 'Un autre ZIP est en cours d’import dans ce Livre. Réessayez dans un instant.';
-$string['slide'] = 'Diapositive {$a}';
-$string['success'] = '{$a} chapitres ont été ajoutés à la fin du Livre.';
-$string['privacy:metadata'] = 'Le plugin ne possède pas de stockage distinct de données personnelles. Les fichiers brouillons relèvent du système de fichiers Moodle ; les chapitres et images relèvent de mod_book. Les images temporaires sont supprimées après l’import.';
+$string['pluginname'] = 'Slide images to Book';
+$string['pptxbook:import'] = 'Import slide images as Books';
+$string['import'] = 'Import images (ZIP)';
+$string['bookname'] = 'Book name';
+$string['section'] = 'Course section';
+$string['presentation'] = 'ZIP archive of PNG/JPEG images';
+$string['importnotice'] = 'Images are sorted naturally by their full relative filenames (Slide2 before Slide10). Use consistent names and put the images in one folder. Images are appended to this Book; existing chapters are preserved. Each filename becomes a chapter title. If the Book is visible, new chapters are visible immediately. Add accessible descriptions manually where needed. Keep this page open until the import finishes.';
+$string['invalidname'] = 'Enter a Book name between 1 and 255 characters.';
+$string['maxslides'] = 'Maximum images';
+$string['maxslides_desc'] = 'Maximum images per import (1–200). Default: 50.';
+$string['maxmb'] = 'Maximum ZIP size (MB)';
+$string['maxmb_desc'] = 'ZIP upload limit (1–100 MB). Moodle, course and PHP limits also apply. Default: 25 MB.';
+$string['notconfigured'] = 'PHP ZIP and GD extensions are required. Ask your hosting provider to enable them.';
+$string['invalidzip'] = 'Invalid, damaged or unsafe ZIP archive. Create a new ZIP containing only PNG/JPEG images.';
+$string['archivelimit'] = 'The ZIP exceeds 5,000 entries or 128 MB of uncompressed content.';
+$string['unsupportedfile'] = 'The ZIP contains a file other than PNG or JPEG. Remove other documents before importing.';
+$string['duplicatename'] = 'The ZIP contains duplicate paths (ignoring case). Rename the files before importing.';
+$string['imagelimit'] = 'An image is empty, encrypted or larger than 10 MB.';
+$string['invalidimage'] = 'An image is damaged, has the wrong extension, or exceeds 8 million pixels or 16,000 pixels on an edge. Export smaller PNG/JPEG images.';
+$string['writefailed'] = 'Temporary files could not be written. Check Moodle temporary storage and disk space.';
+$string['slidelimit'] = 'The ZIP must contain between 1 and {$a} images.';
+$string['invalidsection'] = 'Select an existing, ordinary course section.';
+$string['busy'] = 'Another ZIP is being imported into this Book. Try again shortly.';
+$string['slide'] = 'Slide {$a}';
+$string['success'] = '{$a} chapters have been appended to the Book.';
+$string['privacy:metadata'] = 'The plugin has no separate personal-data store. Draft uploads belong to core files; chapters and images belong to mod_book. Temporary images are removed after import.';
