@@ -8,28 +8,27 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_pptxbook;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Read and validate ZIP images without extracting user-controlled paths.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class archive {
@@ -91,8 +90,10 @@ class archive {
                 }
                 $opsys = 0;
                 $attributes = 0;
-                if ($zip->getExternalAttributesIndex($index, $opsys, $attributes) &&
-                        (($attributes >> 16) & 0170000) === 0120000) {
+                if (
+                    $zip->getExternalAttributesIndex($index, $opsys, $attributes) &&
+                        (($attributes >> 16) & 0170000) === 0120000
+                ) {
                     throw new \moodle_exception('invalidzip', 'local_pptxbook');
                 }
                 $key = strtolower($name);
@@ -102,17 +103,21 @@ class archive {
                 $names[$key] = true;
                 $basename = basename($name);
                 // Ignore directories and common Finder/Explorer metadata only.
-                if (str_ends_with($name, '/') || str_starts_with($name, '__MACOSX/') ||
+                if (
+                    str_ends_with($name, '/') || str_starts_with($name, '__MACOSX/') ||
                         $basename === '.DS_Store' || str_starts_with($basename, '._') ||
-                        in_array(strtolower($basename), ['thumbs.db', 'desktop.ini'], true)) {
+                        in_array(strtolower($basename), ['thumbs.db', 'desktop.ini'], true)
+                ) {
                     continue;
                 }
                 $extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
                 if (!in_array($extension, ['png', 'jpg', 'jpeg'], true)) {
                     throw new \moodle_exception('unsupportedfile', 'local_pptxbook');
                 }
-                if ($stat['size'] < 1 || $stat['size'] > self::MAX_IMAGE_BYTES ||
-                        !empty($stat['encryption_method'])) {
+                if (
+                    $stat['size'] < 1 || $stat['size'] > self::MAX_IMAGE_BYTES ||
+                        !empty($stat['encryption_method'])
+                ) {
                     throw new \moodle_exception('imagelimit', 'local_pptxbook');
                 }
                 $entries[] = ['index' => $index, 'name' => $name, 'size' => $stat['size'], 'extension' => $extension];
@@ -120,7 +125,7 @@ class archive {
             if (!$entries || count($entries) > $maxslides) {
                 throw new \moodle_exception('slidelimit', 'local_pptxbook', '', $maxslides);
             }
-            usort($entries, static function(array $first, array $second): int {
+            usort($entries, static function (array $first, array $second): int {
                 return strnatcasecmp($first['name'], $second['name']) ?: strcmp($first['name'], $second['name']);
             });
             $images = [];
@@ -131,8 +136,10 @@ class archive {
                 }
                 $size = @getimagesizefromstring($bytes);
                 $expected = $entry['extension'] === 'png' ? IMAGETYPE_PNG : IMAGETYPE_JPEG;
-                if (!$size || $size[2] !== $expected || $size[0] < 1 || $size[1] < 1 ||
-                        $size[0] > 16000 || $size[1] > 16000 || $size[0] * $size[1] > self::MAX_PIXELS) {
+                if (
+                    !$size || $size[2] !== $expected || $size[0] < 1 || $size[1] < 1 ||
+                        $size[0] > 16000 || $size[1] > 16000 || $size[0] * $size[1] > self::MAX_PIXELS
+                ) {
                     throw new \moodle_exception('invalidimage', 'local_pptxbook');
                 }
                 // Check that GD can actually decode the file, not only its header.

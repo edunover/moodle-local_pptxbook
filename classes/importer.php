@@ -8,28 +8,27 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Import a ZIP of slide images into a Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_pptxbook;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Append validated images to a standard Moodle Book.
  *
  * @package    local_pptxbook
- * @copyright  2026 PowerPoint to Book contributors
+ * @copyright  2026 EDUNOVER
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class importer {
@@ -71,13 +70,16 @@ class importer {
             try {
                 $book = $DB->get_record('book', ['id' => $cm->instance], '*', MUST_EXIST);
                 $lastpage = (int)$DB->get_field_sql(
-                    'SELECT MAX(pagenum) FROM {book_chapters} WHERE bookid = ?', [$book->id]
+                    'SELECT MAX(pagenum) FROM {book_chapters} WHERE bookid = ?',
+                    [$book->id]
                 );
                 $fs = get_file_storage();
                 foreach ($images as $index => $image) {
                     $number = $lastpage + $index + 1;
                     $title = trim(clean_param($image['title'], PARAM_TEXT));
-                    $title = $title === '' ? get_string('slide', 'local_pptxbook', $number) : \core_text::substr($title, 0, 255);
+                    $title = $title === ''
+                        ? get_string('slide', 'local_pptxbook', $number)
+                        : \core_text::substr($title, 0, 255);
                     $chapter = (object)[
                         'bookid' => $book->id,
                         'pagenum' => $number,
