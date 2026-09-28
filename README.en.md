@@ -11,7 +11,7 @@ conversion is not included. English, French and Dutch interfaces are included.
 ## Requirements and installation
 
 Target Moodle versions: 4.5, 5.0, 5.1 and 5.2, with a PHP version supported by Moodle,
-and PHP ZIP/GD extensions enabled. Compatibility with all targets is not yet certified.
+and PHP ZIP/GD extensions enabled. Automated compatibility checks pass on all target versions.
 
 Upload `local_pptxbook-0.2.4.zip` under Site administration > Plugins > Install plugins.
 For manual installation, copy `pptxbook` to `local/` (4.5–5.0) or `public/local/`
@@ -68,8 +68,9 @@ Issues: https://github.com/edunover/moodle-local_pptxbook/issues
 These links require access while the repository is private.
 
 GitHub Actions passed on 28 September 2026 for Moodle 4.5/PHP 8.1, 5.0/PHP 8.2,
-5.1/PHP 8.3 and 5.2/PHP 8.3 with PostgreSQL 17. Checks include PHP lint, Moodle
+5.1/PHP 8.3 and 5.2/PHP 8.3 with PostgreSQL 17, plus Moodle 5.2/PHP 8.3 with MariaDB 11. Checks include PHP lint, Moodle
 coding standards, PHPDoc, plugin structure, upgrade savepoints and plugin PHPUnit tests.
-[Successful run](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36421802131).
-Browser acceptance, backup/restore and concurrent import scenarios remain to be tested.
-See TESTING.md and GITHUB_TESTS.fr.md. This release is not Marketplace-approved.
+[Successful run](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36445221979).
+
+Browser acceptance, upgrade, invalid archive, backup/restore and deletion tests passed. Hidden-Book access, storage rollback and true concurrent imports remain to be tested.
+See [TESTING.en.md](TESTING.en.md) and [GITHUB_TESTS.en.md](GITHUB_TESTS.en.md). This release is not Marketplace-approved.
