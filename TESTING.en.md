@@ -27,9 +27,9 @@ savepoint validation and PHPUnit.
 
 ## Manual test on Moodle 4.5.11+
 
-Version 0.2.4 was installed through Moodle's ZIP installer on PHP 8.3.33. Moodle
+The 1.0.0 release candidate was installed through Moodle's ZIP installer on PHP 8.3.33. Moodle
 recognised `local_pptxbook`, its dependency on `mod_book`, the supported range 4.5–5.2
-and its settings page. The only installation notice was the declared beta maturity.
+and its settings page.
 
 A ZIP containing three images was imported into an existing Book. Existing content
 was retained, the three chapters were appended in natural order (`1`, `2`, `10`),
@@ -43,6 +43,7 @@ the import URL was denied. The administrator role was restored after the test.
 An archive containing an unsupported file was rejected with an explicit message and
 without adding a chapter. Upgrade from an earlier plugin version, Book backup and
 restore, and deletion of imported chapters and files were also tested successfully.
+Images from a hidden Book and direct image access while logged out were denied as expected.
 
 ## Issues found and fixed by the test runs
 
@@ -51,9 +52,8 @@ three languages. Test coverage metadata was made compatible with PHPUnit 9 and 1
 then its placement was adjusted for the Moodle 4.5 checker. The latest run passed in
 all five PostgreSQL and MariaDB environments.
 
-## Remaining release checks
+## Additional recommended checks
 
-- Access to images in a hidden Book and logged-out access.
 - Rollback after a storage error and two truly concurrent imports.
 
 The automated and manual results do not constitute Moodle Marketplace approval.
