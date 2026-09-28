@@ -34,9 +34,8 @@ structure, cohérence des points de mise à jour et PHPUnit.
 - Rejet d'un ZIP contenant un fichier non pris en charge : réussi, sans ajout de chapitre.
 - Sauvegarde/restauration du Livre et suppression des fichiers importés : réussies.
 
-## Vérifications restant à effectuer
+## Vérifications complémentaires recommandées
 
-- Accès aux images d'un Livre masqué et accès hors connexion.
 - Erreur d'écriture pendant l'import, rollback et deux imports simultanés.
 
 Les résultats automatisés et manuels ne constituent pas une approbation Marketplace.
