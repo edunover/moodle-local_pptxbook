@@ -1,6 +1,6 @@
 # Images de diapositives vers Livre — Moodle
 
-Version **0.2.4 bêta**, composant `local_pptxbook`, cible Moodle **4.5 à 5.2**.
+Version **1.0.0 stable**, composant `local_pptxbook`, cible Moodle **4.5 à 5.2**.
 Le nom technique reste inchangé pour permettre la mise à jour de la version 0.1.0.
 
 Code source et suivi des problèmes :
@@ -8,12 +8,14 @@ Code source et suivi des problèmes :
 
 Cette version importe un **ZIP d’images PNG/JPEG dans un Livre existant**.
 Elle n’utilise ni LibreOffice, ni Poppler, ni commande système, ni service externe.
-L’interface est disponible en français, anglais et néerlandais.[English documentation](README.en.md) · [English installation guide](INSTALL.en.md) · [English test report](TESTING.en.md).
+L’interface est disponible en français, anglais et néerlandais.
+
+[English documentation](README.en.md) · [English installation guide](INSTALL.en.md) · [English test report](TESTING.en.md).
 
 ## Installation sur un hébergement partagé
 
 1. Dans Moodle : **Administration du site → Plugins → Installer des plugins**.
-2. Envoyez **local_pptxbook-0.2.4.zip** et suivez les étapes d’installation.
+2. Envoyez **local_pptxbook-1.0.0.zip** et suivez les étapes d’installation.
 3. Vérifiez que les extensions PHP **ZIP et GD** sont activées sur votre hébergement.
    Il s’agit d’extensions PHP, pas de programmes à installer comme LibreOffice.
 4. Réglez les limites dans **Administration du site → Plugins → Plugins locaux →
@@ -101,13 +103,19 @@ Aucune reconnaissance de texte n’est réalisée.
 ## État de validation
 
 Les contrôles GitHub Actions ont réussi le 28 septembre 2026 sur Moodle 4.5/PHP 8.1,
-5.0/PHP 8.2, 5.1/PHP 8.3 et 5.2/PHP 8.3 avec PostgreSQL 17, ainsi que sur Moodle 5.2/PHP 8.3 avec MariaDB 11 : syntaxe PHP,
+5.0/PHP 8.2, 5.1/PHP 8.3 et 5.2/PHP 8.3 avec PostgreSQL 17, ainsi que sur
+Moodle 5.2/PHP 8.3 avec MariaDB 11 : syntaxe PHP,
 standards Moodle, PHPDoc, structure du plugin, points de mise à jour et tests PHPUnit.
 [Consulter l'exécution réussie](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36445221979).
 
-Les tests portent sur les archives et l'importation dans un Livre. Ils ne remplacent
-pas les essais visuels, de sauvegarde/restauration ou de concurrence.
-La version reste bêta ; aucune approbation Marketplace n'est revendiquée.
+Les tests portent sur les archives et l'importation dans un Livre. Les essais manuels
+couvrent aussi l'installation, la mise à niveau, l'interface multilingue, les droits,
+le rejet des archives invalides, la sauvegarde/restauration, la suppression ainsi que
+l'accès aux images d'un Livre masqué ou hors connexion. Les scénarios d'erreur
+d'écriture et de concurrence réelle restent des contrôles complémentaires.
+Aucune approbation Marketplace n'est revendiquée avant l'examen de Moodle.org.
 Voir [TESTING.md](TESTING.md) et [le guide GitHub Actions](GITHUB_TESTS.fr.md).
+Leurs versions anglaises sont disponibles dans [TESTING.en.md](TESTING.en.md) et
+[GITHUB_TESTS.en.md](GITHUB_TESTS.en.md).
 
 Licence : GPL v3 ou ultérieure.
