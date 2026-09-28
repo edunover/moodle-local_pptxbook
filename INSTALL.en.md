@@ -1,8 +1,8 @@
-# Installing version 0.2.4
+# Installing version 1.0.0
 
 1. Back up the site before an upgrade.
 2. Open **Site administration → Plugins → Install plugins**.
-3. Select `local_pptxbook-0.2.4.zip` and complete the installation or upgrade.
+3. Select `local_pptxbook-1.0.0.zip` and complete the installation or upgrade.
 4. Settings are under **Plugins → Local plugins → Slide images to Book**.
 5. In a Book, open **More → Import images**.
 
@@ -15,3 +15,4 @@ plugin directory before opening Moodle notifications. Do not uninstall it first.
 
 Read the [English documentation](README.en.md) for limits and the
 [English test report](TESTING.en.md) for the exact validation status.
+
