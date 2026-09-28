@@ -13,7 +13,7 @@ conversion is not included. English, French and Dutch interfaces are included.
 Target Moodle versions: 4.5, 5.0, 5.1 and 5.2, with a PHP version supported by Moodle,
 and PHP ZIP/GD extensions enabled. Automated compatibility checks pass on all target versions.
 
-Upload `local_pptxbook-0.2.4.zip` under Site administration > Plugins > Install plugins.
+Upload `local_pptxbook-1.0.0.zip` under Site administration > Plugins > Install plugins.
 For manual installation, copy `pptxbook` to `local/` (4.5–5.0) or `public/local/`
 (5.1–5.2), then visit Site administration > Notifications. For upgrades replace the
 whole plugin directory to remove obsolete conversion files; do not uninstall first.
