@@ -1,75 +1,48 @@
-# Vérification — version ZIP 0.2.3
+# Rapport de validation
 
-## Contrôles exécutés
+## GitHub Actions — 28 septembre 2026
 
-- Analyse de syntaxe de tous les fichiers PHP sous PHP 8.4.6 : réussie.
-- Harnais autonome de développement (hors ZIP) : **41 vérifications réussies**.
-- Archives PNG/JPEG réelles générées par GD : tri numérique, conservation des octets
-  JPEG, MIME et extension, métadonnées système ignorées.
-- Refus : archives non valides, traversée de dossiers, chemins absolus/Windows,
-  liens symboliques, doublons, fausses images, mauvaise extension, taille,
-  dimensions excessives, nombre d’images excessif, fichiers non autorisés.
-- Suppression des images temporaires partielles en cas d’erreur.
-- Callback de navigation exercé avec des doublures : Livre uniquement, permissions,
-  identifiant d’activité correct et placement forcé dans le menu Plus.
+[Exécution réussie no 3](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36421802131), commit
+`ce43d15222a03659885a2d2d09a38d8b263daba4`.
 
-Ces contrôles n’exécutent pas Moodle. La vérification du callback avec des doublures
-ne démontre pas le rendu du menu dans un thème réel.
+| Moodle | PHP | Base | Résultat |
+|---|---|---|---|
+| 4.5 | 8.1 | PostgreSQL 17 | Réussi |
+| 5.0 | 8.2 | PostgreSQL 17 | Réussi |
+| 5.1 | 8.3 | PostgreSQL 17 | Réussi |
+| 5.2 | 8.3 | PostgreSQL 17 | Réussi |
 
-## Tests Moodle fournis, non exécutés ici
+Chaque tâche a exécuté : installation Moodle, syntaxe PHP, Moodle CodeSniffer
+sans avertissement accepté, PHPDoc sans avertissement accepté, validation de la
+structure, cohérence des points de mise à jour et PHPUnit.
 
-Sur une installation Moodle réservée aux tests, initialisée pour PHPUnit :
+## Tests PHPUnit exécutés
 
-```sh
-# Moodle 4.5 / 5.0, depuis la racine Moodle
-vendor/bin/phpunit local/pptxbook/tests
-# Moodle 5.1 / 5.2, depuis la racine du dépôt
-vendor/bin/phpunit public/local/pptxbook/tests
-```
+- `archive_test.php` : 2 tests couvrant ordre naturel, titres, formats PNG/JPEG,
+  préservation des octets, métadonnées système, fichiers interdits, chemins dangereux,
+  doublons, corruption, limites, symlinks et nettoyage après erreur.
+- `importer_test.php` : 2 tests couvrant ajout des chapitres, conservation du contenu
+  et de la visibilité, stockage natif des images, imports successifs et refus d'un étudiant.
 
-Ces tests vérifient l’ajout à un Livre existant, la conservation du premier chapitre,
-les titres, les fichiers, l’absence de nouvelle activité, la conservation de la
-visibilité, les imports successifs et le refus d’accès d’un étudiant.
+## Corrections révélées par les exécutions
 
-## Recette à exécuter sur Moodle 4.5, 5.0, 5.1 et 5.2
+La première exécution a détecté un ordre incorrect des clés des traductions.
+Le tri a été corrigé dans les trois langues. Les métadonnées de couverture des tests
+ont été adaptées à PHPUnit 9 et 11, puis leur disposition ajustée au vérificateur Moodle 4.5.
+La troisième exécution a réussi sur les quatre versions.
 
-1. Installer le plugin ou mettre à jour la version 0.1.0 ; vérifier les réglages
-   et la disparition des options LibreOffice/Poppler.
-2. Créer un Livre avec un chapitre existant. Comme enseignant éditeur, vérifier
-   **Plus → Importer des images (ZIP)** dans le Livre ; aucune commande ne doit
-   apparaître dans une autre activité ou pour un étudiant.
-3. Importer un ZIP contenant Slide1.png, Slide2.jpg, Slide10.png. Vérifier les trois
-   nouveaux chapitres dans cet ordre, après le contenu existant, et afficher les images.
-4. Vérifier le français, l’anglais, la visibilité du Livre et les permissions
-   mod/book:edit/local/pptxbook:import retirées individuellement.
-5. Tester un Livre vide, un Livre contenant des sous-chapitres et un deuxième import.
-6. En mode étudiant, vérifier l’accès aux images du Livre visible et le refus
-   d’accès au Livre masqué ; tester également les URL des images hors connexion.
-7. Tester les limites et un ZIP corrompu : aucun nouveau chapitre ne doit apparaître.
-8. Sauvegarder/restaurer le Livre dans un autre cours ; vérifier les images.
-9. Supprimer un chapitre importé et vérifier le nettoyage natif des fichiers.
-10. Tester une panne d’écriture au milieu d’un import et le rollback des chapitres
-    et fichiers, ainsi que deux imports simultanés dans le même Livre.
+## Vérifications restant à effectuer
 
-## Conformité de code
+- Menu Plus et formulaire dans les thèmes Moodle utilisés.
+- Installation et migration depuis une version précédente sur un site existant.
+- Accès aux images d'un Livre masqué et accès hors connexion.
+- Sauvegarde/restauration et suppression des fichiers des chapitres.
+- Erreur d'écriture pendant l'import, rollback et deux imports simultanés.
+- Autres moteurs de base et autres versions PHP pris en charge.
 
-Moodle CodeSniffer 3.7.0 exécuté avec `moodle` et `moodle-extra` : **0 erreur,
-0 avertissement**. Les tests autonomes ont été migrés vers `tests/archive_test.php`
-pour exécution native avec Moodle PHPUnit ; le harnais avec doublures n'est pas livré.
-Les tests d'archive couvrent tri, titres, MIME, octets conservés, fichiers non autorisés,
-chemins dangereux, doublons, taille, dimensions, corruption, symlinks et nettoyage.
+L'utilisateur a déjà validé l'import et les noms de chapitres sur son Moodle 4.5.
+Les résultats automatisés ne constituent pas une approbation Marketplace.
 
-PHPDoc Checker et validation via moodle-plugin-ci n'ont pas pu s'exécuter : Moodle
-nécessite une configuration et une base. L'initialisation PostgreSQL a échoué parce
-que cet environnement interdit sa création de mémoire partagée. Aucun test
-avec base de données réussi n'est revendiqué.
+## Relancer
 
-## Avant soumission Marketplace
-
-- Exécuter PHPUnit et PHPDoc Checker dans un environnement Moodle dédié.
-- Vérifier les quatre versions Moodle ciblées avec leur version PHP compatible.
-- Fournir des captures du menu Plus, du formulaire et du Livre importé.
-- Rendre le code source et le suivi des problèmes accessibles aux évaluateurs.
-  Le dépôt GitHub est actuellement privé ; sa visibilité n'a pas été modifiée.
-- Compléter la fiche du plugin et vérifier les critères Marketplace en vigueur.
-  Une analyse de style réussie ne constitue pas une approbation Moodle.
+Voir [le guide détaillé en français](GITHUB_TESTS.fr.md).

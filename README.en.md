@@ -67,9 +67,9 @@ Source: https://github.com/edunover/moodle-local_pptxbook
 Issues: https://github.com/edunover/moodle-local_pptxbook/issues
 These links require access while the repository is private.
 
-Moodle CodeSniffer 3.7.0 (`moodle` and `moodle-extra`) passes with zero errors or warnings.
-PHP lint and 41 standalone smoke assertions passed under PHP 8.4.6. The standalone harness
-is a development aid outside the distributable; native Moodle PHPUnit tests are included.
-The user has confirmed successful imports on Moodle 4.5. Moodle PHPUnit, full PHPDoc
-validation, cross-version compatibility and browser acceptance tests remain outstanding.
-See TESTING.md. This release is not represented as Marketplace-approved.
+GitHub Actions passed on 28 September 2026 for Moodle 4.5/PHP 8.1, 5.0/PHP 8.2,
+5.1/PHP 8.3 and 5.2/PHP 8.3 with PostgreSQL 17. Checks include PHP lint, Moodle
+coding standards, PHPDoc, plugin structure, upgrade savepoints and plugin PHPUnit tests.
+[Successful run](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36421802131).
+Browser acceptance, backup/restore and concurrent import scenarios remain to be tested.
+See TESTING.md and GITHUB_TESTS.fr.md. This release is not Marketplace-approved.

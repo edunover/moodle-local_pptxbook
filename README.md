@@ -102,12 +102,14 @@ Aucune reconnaissance de texte n’est réalisée.
 
 ## État de validation
 
-Version bêta. Moodle CodeSniffer 3.7.0 (`moodle` et `moodle-extra`) : zéro erreur,
-zéro avertissement. Syntaxe PHP vérifiée sous PHP 8.4.6 ; 41 contrôles autonomes
-réussis. Ces contrôles autonomes ne remplacent pas PHPUnit dans Moodle.
-Les tests PHPUnit fournis restent à exécuter : la base PostgreSQL locale ne peut
-pas démarrer dans cet environnement. La compatibilité 4.5–5.2 reste une cible,
-non une certification. L’utilisateur a validé l’import sur son Moodle 4.5.
-Voir `TESTING.md` pour les contrôles restants.
+Les contrôles GitHub Actions ont réussi le 28 septembre 2026 sur Moodle 4.5/PHP 8.1,
+5.0/PHP 8.2, 5.1/PHP 8.3 et 5.2/PHP 8.3, avec PostgreSQL 17 : syntaxe PHP,
+standards Moodle, PHPDoc, structure du plugin, points de mise à jour et tests PHPUnit.
+[Consulter l'exécution réussie](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36421802131).
+
+Les tests portent sur les archives et l'importation dans un Livre. Ils ne remplacent
+pas les essais visuels, de sauvegarde/restauration ou de concurrence.
+La version reste bêta ; aucune approbation Marketplace n'est revendiquée.
+Voir [TESTING.md](TESTING.md) et [le guide GitHub Actions](GITHUB_TESTS.fr.md).
 
 Licence : GPL v3 ou ultérieure.
