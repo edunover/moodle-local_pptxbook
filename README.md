@@ -8,9 +8,7 @@ Code source et suivi des problèmes :
 
 Cette version importe un **ZIP d’images PNG/JPEG dans un Livre existant**.
 Elle n’utilise ni LibreOffice, ni Poppler, ni commande système, ni service externe.
-L’interface est disponible en français, anglais et néerlandais.
-
-[English documentation](README.en.md).
+L’interface est disponible en français, anglais et néerlandais.[English documentation](README.en.md) · [English installation guide](INSTALL.en.md) · [English test report](TESTING.en.md).
 
 ## Installation sur un hébergement partagé
 
@@ -103,9 +101,9 @@ Aucune reconnaissance de texte n’est réalisée.
 ## État de validation
 
 Les contrôles GitHub Actions ont réussi le 28 septembre 2026 sur Moodle 4.5/PHP 8.1,
-5.0/PHP 8.2, 5.1/PHP 8.3 et 5.2/PHP 8.3, avec PostgreSQL 17 : syntaxe PHP,
+5.0/PHP 8.2, 5.1/PHP 8.3 et 5.2/PHP 8.3 avec PostgreSQL 17, ainsi que sur Moodle 5.2/PHP 8.3 avec MariaDB 11 : syntaxe PHP,
 standards Moodle, PHPDoc, structure du plugin, points de mise à jour et tests PHPUnit.
-[Consulter l'exécution réussie](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36421802131).
+[Consulter l'exécution réussie](https://github.com/edunover/moodle-local_pptxbook/actions/runs/36445221979).
 
 Les tests portent sur les archives et l'importation dans un Livre. Ils ne remplacent
 pas les essais visuels, de sauvegarde/restauration ou de concurrence.
