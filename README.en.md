@@ -1,6 +1,6 @@
 # Slide images to Book
 
-Moodle local plugin `local_pptxbook`, version **0.2.3 beta**.
+Moodle local plugin `local_pptxbook`, version **0.2.4 beta**.
 Imports a ZIP of PNG/JPEG slide images into an **existing Book activity**.
 No LibreOffice, shell commands or external conversion service is required.
 Export your slides as images in PowerPoint before creating the ZIP; direct PPTX
@@ -13,7 +13,7 @@ conversion is not included. English, French and Dutch interfaces are included.
 Target Moodle versions: 4.5, 5.0, 5.1 and 5.2, with a PHP version supported by Moodle,
 and PHP ZIP/GD extensions enabled. Compatibility with all targets is not yet certified.
 
-Upload `local_pptxbook-0.2.3.zip` under Site administration > Plugins > Install plugins.
+Upload `local_pptxbook-0.2.4.zip` under Site administration > Plugins > Install plugins.
 For manual installation, copy `pptxbook` to `local/` (4.5–5.0) or `public/local/`
 (5.1–5.2), then visit Site administration > Notifications. For upgrades replace the
 whole plugin directory to remove obsolete conversion files; do not uninstall first.
@@ -27,7 +27,7 @@ not under activity modules. The Book module must be enabled.
 
 1. Export slides as PNG or JPEG and name them consistently (Slide1.png, Slide2.png, Slide10.png).
 2. Compress the images into a ZIP, optionally within one containing directory.
-3. Open the target Book, then choose **More > Import images (ZIP)**.
+3. Open the target Book, then choose **More > Import images**.
 4. Upload the ZIP. Each image becomes a new main chapter at the end of the Book.
 
 File names without extensions become chapter titles, with underscores replaced by spaces.

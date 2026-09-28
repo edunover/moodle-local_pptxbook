@@ -1,6 +1,6 @@
 # Images de diapositives vers Livre — Moodle
 
-Version **0.2.3 bêta**, composant `local_pptxbook`, cible Moodle **4.5 à 5.2**.
+Version **0.2.4 bêta**, composant `local_pptxbook`, cible Moodle **4.5 à 5.2**.
 Le nom technique reste inchangé pour permettre la mise à jour de la version 0.1.0.
 
 Code source et suivi des problèmes :
@@ -15,7 +15,7 @@ L’interface est disponible en français, anglais et néerlandais.
 ## Installation sur un hébergement partagé
 
 1. Dans Moodle : **Administration du site → Plugins → Installer des plugins**.
-2. Envoyez **local_pptxbook-0.2.3.zip** et suivez les étapes d’installation.
+2. Envoyez **local_pptxbook-0.2.4.zip** et suivez les étapes d’installation.
 3. Vérifiez que les extensions PHP **ZIP et GD** sont activées sur votre hébergement.
    Il s’agit d’extensions PHP, pas de programmes à installer comme LibreOffice.
 4. Réglez les limites dans **Administration du site → Plugins → Plugins locaux →
@@ -37,7 +37,7 @@ Le plugin ne modifie pas les Livres déjà créés par la version précédente.
    `Diapositive1.png`, `Diapositive2.png`, `Diapositive10.png`.
 3. Compressez-les dans un ZIP. Le ZIP peut contenir un dossier enveloppant les images.
 4. Ouvrez le **Livre Moodle** auquel ajouter les diapositives.
-5. Choisissez **Plus → Importer des images (ZIP)**.
+5. Choisissez **Plus → Importer des images**.
 6. Sélectionnez le ZIP et lancez l’import.
 
 Chaque image devient un chapitre principal ajouté à la fin du Livre.

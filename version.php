@@ -25,9 +25,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /** @var stdClass $plugin */
 $plugin->component = 'local_pptxbook';
-$plugin->version = 2026092704;
+$plugin->version = 2026092800;
 $plugin->requires = 2024100700; // Moodle 4.5.
 $plugin->supported = [405, 502];
 $plugin->maturity = MATURITY_BETA;
-$plugin->release = '0.2.3';
+$plugin->release = '0.2.4';
 $plugin->dependencies = ['mod_book' => 2024100700];
