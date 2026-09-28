@@ -24,6 +24,7 @@
 namespace local_pptxbook;
 
 
+#[\PHPUnit\Framework\Attributes\CoversClass(importer::class)]
 /**
  * Moodle integration tests for appending chapters.
  *
@@ -32,7 +33,6 @@ namespace local_pptxbook;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \local_pptxbook\importer
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(importer::class)]
 final class importer_test extends \advanced_testcase {
     /**
      * Verify existing content, placement, visibility and chapter files are preserved.

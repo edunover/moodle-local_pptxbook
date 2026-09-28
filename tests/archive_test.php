@@ -23,6 +23,7 @@
  */
 namespace local_pptxbook;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(archive::class)]
 /**
  * Validate archive contents and reject unsafe uploads.
  *
@@ -31,7 +32,6 @@ namespace local_pptxbook;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \local_pptxbook\archive
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(archive::class)]
 final class archive_test extends \advanced_testcase {
     /**
      * Create a ZIP fixture inside Moodle's temporary directory.
